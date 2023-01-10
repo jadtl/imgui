@@ -11,8 +11,9 @@ set(CMAKE_DEBUG_POSTFIX d)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED)
 
+#find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(SDL2 REQUIRED)
+#find_package(SDL2 REQUIRED)
 
 set(ROOT ${IMGUI_DIR})
 
@@ -35,7 +36,7 @@ target_include_directories(imgui PUBLIC
 set(INSTALL_TARGETS imgui)
 set(INSTALL_HEADERS ${ROOT}/imgui.h ${ROOT}/imconfig.h)
 
-foreach(BACKEND glfw opengl3 sdl sdlrenderer)
+foreach(BACKEND glfw opengl3) #sdl sdlrenderer)
 	set(NAME imgui_impl_${BACKEND})
 	set(HEADER ${ROOT}/backends/${NAME}.h)
 	add_library(${NAME} STATIC ${ROOT}/backends/${NAME}.cpp ${HEADER})
@@ -50,8 +51,8 @@ endforeach()
 target_link_libraries(imgui_impl_glfw PRIVATE glfw)
 target_sources(imgui_impl_opengl3 PRIVATE ${ROOT}/backends/imgui_impl_opengl3_loader.h)
 target_link_libraries(imgui_impl_opengl3 PRIVATE OpenGL::GL)
-target_link_libraries(imgui_impl_sdl PRIVATE SDL2::SDL2-static)
-target_link_libraries(imgui_impl_sdlrenderer PRIVATE SDL2::SDL2-static)
+#target_link_libraries(imgui_impl_sdl PRIVATE SDL2::SDL2-static)
+#target_link_libraries(imgui_impl_sdlrenderer PRIVATE SDL2::SDL2-static)
 
 install(TARGETS ${INSTALL_TARGETS}
     EXPORT imgui-targets DESTINATION lib)
@@ -67,12 +68,12 @@ target_link_libraries(example_glfw_opengl3
 	PRIVATE imgui imgui_impl_glfw imgui_impl_opengl3 glfw
 )
 
-add_executable(example_sdl_sdlrenderer ${IMGUI_DIR}/examples/example_sdl_sdlrenderer/main.cpp)
-target_link_libraries(example_sdl_sdlrenderer
-	PRIVATE imgui imgui_impl_sdl imgui_impl_sdlrenderer SDL2::SDL2-static SDL2::SDL2main
-)
+#add_executable(example_sdl_sdlrenderer ${IMGUI_DIR}/examples/example_sdl_sdlrenderer/main.cpp)
+#target_link_libraries(example_sdl_sdlrenderer
+	#PRIVATE imgui imgui_impl_sdl imgui_impl_sdlrenderer SDL2::SDL2-static SDL2::SDL2main
+#)
 
-add_executable(example_sdl_opengl3 ${IMGUI_DIR}/examples/example_sdl_opengl3/main.cpp)
-target_link_libraries(example_sdl_opengl3
-	PRIVATE imgui imgui_impl_sdl imgui_impl_opengl3 SDL2::SDL2-static SDL2::SDL2main
-)
+#add_executable(example_sdl_opengl3 ${IMGUI_DIR}/examples/example_sdl_opengl3/main.cpp)
+#target_link_libraries(example_sdl_opengl3
+	#PRIVATE imgui imgui_impl_sdl imgui_impl_opengl3 SDL2::SDL2-static SDL2::SDL2main
+#)
