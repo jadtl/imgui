@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED)
 
 #find_package(glfw3 REQUIRED)
+find_package(Vulkan REQUIRED)
 find_package(OpenGL REQUIRED)
 #find_package(SDL2 REQUIRED)
 
@@ -28,7 +29,13 @@ add_library(imgui STATIC
     ${ROOT}/imgui_internal.h
     ${ROOT}/imgui_tables.cpp
     ${ROOT}/imgui_widgets.cpp
+	${ROOT}/backends/imgui_impl_vulkan.cpp
+	${ROOT}/backends/imgui_impl_glfw.cpp
+    ${ROOT}/imgui_widgets.cpp
 )
+target_link_libraries(imgui
+	Vulkan::Vulkan
+	glfw)
 target_include_directories(imgui PUBLIC
     $<BUILD_INTERFACE:${ROOT}>
     $<INSTALL_INTERFACE:include>)
