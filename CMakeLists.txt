@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.20)
 project(imgui)
 
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/external/imgui)
+set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/External/imgui)
 
 if(NOT IMGUI_DIR)
 	message(FATAL_ERROR "IMGUI_DIR must be set to the imgui root directory")
+endif()
+
+if (LINUX)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
 set(CMAKE_DEBUG_POSTFIX d)
