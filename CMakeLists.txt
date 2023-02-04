@@ -5,7 +5,7 @@ if (LINUX)
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/External/imgui)
+set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(NOT IMGUI_DIR)
 	message(FATAL_ERROR "IMGUI_DIR must be set to the imgui root directory")
